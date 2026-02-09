@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/HuiRuWorkStation">
+        <file>ImageSource/fontawesome-webfont.ttf</file>
+    </qresource>
+</RCC>
