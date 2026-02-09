@@ -1,7 +1,7 @@
 # HuiRuWorkStation
 
  ## 项目描述
-  基于Qt/C++/OpenCV/MySQL的工业视觉与运动控制集成平台。
+  基于Qt/C++/OpenCV/MySQL的工业视觉与运动控制集成数据平台。
 
  ## 功能概述
 ​	 使用OpenCV采集图像数据
