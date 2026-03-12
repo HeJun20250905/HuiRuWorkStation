@@ -17,8 +17,8 @@
    <widget class="QCustomToolButton" name="toolButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>645</y>
+      <x>9</x>
+      <y>651</y>
       <width>81</width>
       <height>36</height>
      </rect>
@@ -35,8 +35,8 @@
    <widget class="QToolButton" name="toolButton_2">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>645</y>
+      <x>94</x>
+      <y>651</y>
       <width>81</width>
       <height>36</height>
      </rect>
@@ -53,8 +53,8 @@
    <widget class="QCustomSwitchButton" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>645</y>
+      <x>840</x>
+      <y>650</y>
       <width>101</width>
       <height>36</height>
      </rect>
@@ -69,7 +69,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
+      <y>44</y>
       <width>181</width>
       <height>531</height>
      </rect>
@@ -82,7 +82,7 @@
     <property name="geometry">
      <rect>
       <x>195</x>
-      <y>50</y>
+      <y>44</y>
       <width>746</width>
       <height>531</height>
      </rect>

@@ -59,8 +59,9 @@ private:
     QColor m_titleBarColor = QColor("#40444D");
     QColor m_titleTextColor = Qt::white;
 
-    // 关闭按钮状态
+    // 按钮状态
     QRect m_closeButtonRect;
+    QRect m_minimizeButtonRect;
 
     // 字体
     QFont m_titleFont;
@@ -73,6 +74,8 @@ private:
     // 记录是否在按钮上按下
     bool m_closeButtonDown = false;
     bool m_closeButtonHovered = false;
+    bool m_minimizeButtonHovered = false;
+    bool m_minimizeButtonDown = false;
 
 	// 页面映射
     QMap<QString, QWidget*> m_pageMap;

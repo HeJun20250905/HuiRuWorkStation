@@ -29,7 +29,7 @@ private:
 	QColor m_titleBarColor = QColor(80, 80, 80);
 	QColor m_titleTextColor = Qt::white;
 	int m_borderRadius = 8;
-	int m_titleHeight = 36;
+	int m_titleHeight = 32;
 	QFont m_titleFont;
 	QFont m_iconFont;
 	bool m_mousePressed = false;

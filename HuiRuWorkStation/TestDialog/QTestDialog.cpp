@@ -1,5 +1,6 @@
 #include "QTestDialog.h"
 #include <QFontDatabase>
+#include <QpushButton>
 
 QTestDialog::QTestDialog(QWidget *parent)
 	: QDialog(parent)
@@ -55,7 +56,7 @@ QTestDialog::QTestDialog(QWidget *parent)
 		"  border: none;"
 		"  background: transparent;"
 		"  color: #FFFFFF;"
-		"  font-size: 18px;"
+		"  font-size: 24px;"
 		"}"
 		"QPushButton:hover {"
 		"  background: transparent;"
@@ -70,6 +71,55 @@ QTestDialog::QTestDialog(QWidget *parent)
 	// 关闭按钮点击事件
 	connect(m_closeButton, &QPushButton::clicked, this, &QDialog::close);
 
+	QPushButton* btn_Test = ui->pushButton_Test;
+	btn_Test->setStyleSheet(R"(
+        QPushButton {
+            background-color: rgb(111, 122, 126);
+            color: rgb(255, 255, 255);
+            border: 1.5px solid rgb(80, 80, 80);
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+        QPushButton:hover {
+            background-color: rgb(91, 102, 106);
+            border-color: rgb(70, 70, 70);
+        }
+        QPushButton:pressed {
+            background-color: rgb(220, 220, 220);
+            color: rgb(51, 51, 51);
+            border-color: rgb(204, 204, 204);
+        }
+        QPushButton:disabled {
+            background-color: rgb(90, 99, 102);
+            color: rgb(160, 160, 160);
+            border-color: rgb(90, 99, 102);
+        }
+    )");
+
+	QPushButton* btn_Quit = ui->pushButton_Quit;
+	btn_Quit->setStyleSheet(R"(
+        QPushButton {
+            background-color: rgb(111, 122, 126);
+            color: rgb(255, 255, 255);
+            border: 1.5px solid rgb(80, 80, 80);
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+        QPushButton:hover {
+            background-color: rgb(91, 102, 106);
+            border-color: rgb(70, 70, 70);
+        }
+        QPushButton:pressed {
+            background-color: rgb(220, 220, 220);
+            color: rgb(51, 51, 51);
+            border-color: rgb(204, 204, 204);
+        }
+        QPushButton:disabled {
+            background-color: rgb(90, 99, 102);
+            color: rgb(160, 160, 160);
+            border-color: rgb(90, 99, 102);
+        }
+    )");
 }
 
 QTestDialog::~QTestDialog()

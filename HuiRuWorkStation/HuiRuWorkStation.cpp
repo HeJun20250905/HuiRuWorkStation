@@ -513,50 +513,50 @@ bool HuiRuWorkStation::OnInitButton()
     QToolButton* btn = ui->toolButton;
     btn->setStyleSheet(R"(
         QToolButton {
-            background-color: #6F7A7E;      /* m_bgColorOn */
-            color: #FFFFFF;                 /* 白色文字，清晰对比 */
-            border: 2px solid #5A6366;      /* 边框同背景色，无缝 */
+            background-color: rgb(111, 122, 126);
+            color: rgb(0, 0, 0);
+            border: 1.5px solid rgb(80, 80, 80);
             border-radius: 5px;
             padding: 5px 10px;
         }
         QToolButton:hover {
-            background-color: #7A8589;      /* 稍亮的 hover 色 */
-            border-color: #7A8589;
+            background-color: rgb(91, 102, 106);
+            border-color: rgb(70, 70, 70);
         }
         QToolButton:pressed {
-            background-color: #DCDCDC;      /* m_sliderColor */
-            color: #333333;                 /* 深灰文字，适应亮背景 */
-            border-color: #CCCCCC;
+            background-color: rgb(220, 220, 220);
+            color: rgb(51, 51, 51);
+            border-color: rgb(204, 204, 204);
         }
         QToolButton:disabled {
-            background-color: #5A6366;
-            color: #A0A0A0;
-            border-color: #5A6366;
+            background-color: rgb(90, 99, 102);
+            color: rgb(160, 160, 160);
+            border-color: rgb(90, 99, 102);
         }
     )");
 
     QToolButton* btn_2 = ui->toolButton_2;
     btn_2->setStyleSheet(R"(
         QToolButton {
-            background-color: #6F7A7E;
-            color: #FFFFFF;
-            border: 2px solid #5A6366;
+            background-color: rgb(111, 122, 126);
+            color: rgb(0, 0, 0);
+            border: 1.5px solid rgb(80, 80, 80);
             border-radius: 5px;
             padding: 5px 10px;
         }
         QToolButton:hover {
-            background-color: #7A8589;
-            border-color: #7A8589;
+            background-color: rgb(91, 102, 106);
+            border-color: rgb(70, 70, 70);
         }
         QToolButton:pressed {
-            background-color: #DCDCDC;
-            color: #333333;
-            border-color: #CCCCCC;
+            background-color: rgb(220, 220, 220);
+            color: rgb(51, 51, 51);
+            border-color: rgb(204, 204, 204);
         }
         QToolButton:disabled {
-            background-color: #5A6366;
-            color: #A0A0A0;
-            border-color: #5A6366;
+            background-color: rgb(90, 99, 102);
+            color: rgb(160, 160, 160);
+            border-color: rgb(90, 99, 102);
         }
     )");
 
@@ -677,18 +677,30 @@ void HuiRuWorkStation::paintEvent(QPaintEvent*)
     painter.setFont(m_titleFont);
     painter.drawText(titleRect, Qt::AlignVCenter | Qt::AlignLeft, "  HuiRuWorkStation");
 
-    // 关闭按钮
-    if (!m_iconFont.family().isEmpty()) 
+    if (!m_iconFont.family().isEmpty())
     {
         QFont iconFont = m_iconFont;
         iconFont.setPixelSize(20);
         painter.setFont(iconFont);
+
+        // 最小化按钮
+        painter.setPen(m_minimizeButtonHovered ? QColor("#1E88E5") : Qt::white);
+        painter.drawText(m_minimizeButtonRect, Qt::AlignCenter, QChar(0xf068));
+    }
+
+    if (!m_iconFont.family().isEmpty())
+    {
+        QFont iconFont = m_iconFont;
+        iconFont.setPixelSize(24);
+        painter.setFont(iconFont);
+
+        // 关闭按钮
         painter.setPen(m_closeButtonHovered ? QColor("#FF4D4D") : Qt::white);
         painter.drawText(m_closeButtonRect, Qt::AlignCenter, QChar(0xf00d));
     }
 
     // 外边框
-    QPen borderPen(m_titleBarColor, 2);
+    QPen borderPen(QColor(90, 90, 90), 2);
     painter.setPen(borderPen);
     painter.setBrush(Qt::NoBrush);
     painter.drawRoundedRect(fullRect.adjusted(1, 1, -1, -1), radius, radius);
@@ -703,6 +715,10 @@ void HuiRuWorkStation::mousePressEvent(QMouseEvent* event)
             if (m_closeButtonRect.contains(event->pos())) 
             {
                 m_closeButtonDown = true;
+            }
+            else if (m_minimizeButtonRect.contains(event->pos()))
+            {
+                m_minimizeButtonDown = true;
             }
             else 
             {
@@ -721,9 +737,11 @@ void HuiRuWorkStation::mouseMoveEvent(QMouseEvent* event)
         return;
     }
 
-    bool oldHover = m_closeButtonHovered;
+    bool oldCloseHover = m_closeButtonHovered;
+    bool oldMinHover = m_minimizeButtonHovered;
     m_closeButtonHovered = m_closeButtonRect.contains(event->pos());
-    if (oldHover != m_closeButtonHovered)
+    m_minimizeButtonHovered = m_minimizeButtonRect.contains(event->pos());
+    if (oldCloseHover != m_closeButtonHovered || oldMinHover != m_minimizeButtonHovered)
     {
         update();
     }
@@ -737,22 +755,29 @@ void HuiRuWorkStation::mouseReleaseEvent(QMouseEvent* event)
         {
             close();
         }
+        if (m_minimizeButtonDown && m_minimizeButtonRect.contains(event->pos()))
+        {
+            showMinimized();
+        }
         m_dragging = false;
         m_closeButtonDown = false;
+        m_minimizeButtonDown = false;
     }
 }
 
 void HuiRuWorkStation::leaveEvent(QEvent*)
 {
-    if (m_closeButtonHovered)
+    if (m_closeButtonHovered || m_minimizeButtonHovered)
     {
         m_closeButtonHovered = false;
+        m_minimizeButtonHovered = false;
         update();
     }
 }
 
 void HuiRuWorkStation::resizeEvent(QResizeEvent* event)
 {
-    m_closeButtonRect = QRect(width() - 36 - 12, 0, 36, 36);
+    m_closeButtonRect = QRect(width() - 24 - 12, 6, 24, 24);
+    m_minimizeButtonRect = QRect(width() - 20 - 12 - 20 - 16, 8, 20, 20);
     QMainWindow::resizeEvent(event);
 }
